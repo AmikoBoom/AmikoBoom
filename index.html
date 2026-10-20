@@ -71,7 +71,7 @@ let activeCategory="Все товары", cart={};
 const fmt=n=>new Intl.NumberFormat("ru-RU",{style:"currency",currency:"RUB",maximumFractionDigits:0}).format(n);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function renderFilters(){document.getElementById("filters").innerHTML=categories.map(c=>`<button class="chip ${c===activeCategory?"active":""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{activeCategory=b.dataset.cat;renderFilters();renderProducts()})}
-function renderProducts(){
+function renderProducts(){document.getElementById("products").innerHTML=
  const q=document.getElementById("search").value.trim().toLowerCase();
  const list=products.filter(p=>(activeCategory==="Все товары"||p.cat===activeCategory)&&`${p.name} ${p.desc} ${p.cat}`.toLowerCase().includes(q));
  document.getElementById("resultCount").textContent=`${list.length} ${list.length===1?"товар":list.length<5?"товара":"товаров"}`;
