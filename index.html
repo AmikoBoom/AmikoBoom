@@ -56,7 +56,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 <div class="notice" id="notice" role="status"></div>
 </form></aside></div>
 <script>
-const products = [{id:9,name:"Школьные брюки",desc:"Тёмно-синие, размеры 10, 11, 12, 13 и 14 лет",price:1400,emoji:"👖",cat:"Одежда",bg:"#e5eaf4",tag:"Новинка"},
+const products = [{id:9,name:"Школьные брюки",image:"https://example.com/pants.jpg",desc:"Тёмно-синие, размеры 10, 11, 12, 13 и 14 лет",price:1400,emoji:"👖",cat:"Одежда",bg:"#e5eaf4",tag:"Новинка"},
 {id:1,name:"Бутылка для воды",desc:"Удобная бутылка для прогулок и спорта",price:790,emoji:"🧴",cat:"Аксессуары",bg:"#e2f1eb",tag:"Хит"},
 {id:2,name:"Мягкий ночник",desc:"Тёплый свет для уютных вечеров",price:1290,emoji:"💡",cat:"Для дома",bg:"#fff0c9",tag:"Уют"},
 {id:3,name:"Эко-сумка",desc:"Лёгкая сумка на каждый день",price:590,emoji:"👜",cat:"Аксессуары",bg:"#f4e2d7",tag:""},
@@ -75,7 +75,7 @@ function renderProducts(){
  const q=document.getElementById("search").value.trim().toLowerCase();
  const list=products.filter(p=>(activeCategory==="Все товары"||p.cat===activeCategory)&&`${p.name} ${p.desc} ${p.cat}`.toLowerCase().includes(q));
  document.getElementById("resultCount").textContent=`${list.length} ${list.length===1?"товар":list.length<5?"товара":"товаров"}`;
- document.getElementById("products").innerHTML=list.length?list.map(p=>`<article class="product"><div class="product-art" style="background:${p.bg}">${p.tag?`<small>${p.tag}</small>`:""}<span>${p.emoji}</span></div><div class="product-info"><h3>${p.name}</h3><p class="desc">${p.desc}</p><div class="buy-row"><span class="price">${fmt(p.price)}</span><button class="add" data-add="${p.id}">+ В корзину</button></div></div></article>`).join(""):`<div class="empty">Ничего не найдено. Попробуй изменить запрос.</div>`;
+ document.getElementById("products").innerHTML=list.length?list.map(p=>`<article class="product">${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;">` : p.emoji}<div class="product-art" style="background:${p.bg}">${p.tag?`<small>${p.tag}</small>`:""}<span></span></div><div class="product-info"><h3>${p.name}</h3><p class="desc">${p.desc}</p><div class="buy-row"><span class="price">${fmt(p.price)}</span><button class="add" data-add="${p.id}">+ В корзину</button></div></div></article>`).join(""):`<div class="empty">Ничего не найдено. Попробуй изменить запрос.</div>`;
  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>add(+b.dataset.add));
 }
 function add(id){cart[id]=(cart[id]||0)+1;renderCart();const b=document.getElementById("openCart");b.animate([{transform:"scale(1)"},{transform:"scale(1.05)"},{transform:"scale(1)"}],{duration:220})}
